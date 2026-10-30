@@ -1,0 +1,198 @@
+{
+  "version": 1,
+  "output_columns": [
+    "report_date",
+    "kpi_id",
+    "kpi_name",
+    "kpi_count",
+    "base_count",
+    "kpi_pct",
+    "base_label"
+  ],
+  "date_window": "previous_day: every query computes yesterday (IST) itself and takes no Redash parameters",
+  "kpis": [
+    {
+      "id": "K01",
+      "name": "BLs with no MCAT mapped",
+      "sheet_tab": "K01_No_MCAT",
+      "sql_file": "sql/k01_no_mcat_mapped.sql",
+      "redash_data_source_id": 41,
+      "redash_query_id": 49596,
+      "date_basis": "approval_date",
+      "direction": "lower_is_better",
+      "enabled": true,
+      "date_window": "previous_day"
+    },
+    {
+      "id": "K02",
+      "name": "One-word BLs approved",
+      "sheet_tab": "K02_One_Word",
+      "sql_file": "sql/k02_one_word_bl_approved.sql",
+      "redash_data_source_id": 41,
+      "redash_query_id": 43446,
+      "date_basis": "approval_date",
+      "direction": "lower_is_better",
+      "enabled": true,
+      "date_window": "previous_day"
+    },
+    {
+      "id": "K03",
+      "name": "BLs with photos - Generated / Approved / App %",
+      "sheet_tab": "K03_Photo_BLs",
+      "sql_file": "sql/k03_photo_bls_gen_vs_approved.sql",
+      "redash_data_source_id": 41,
+      "redash_query_id": 43226,
+      "date_basis": "approval_date",
+      "extra_columns": [
+        "photo_bls_generated"
+      ],
+      "direction": "higher_is_better",
+      "enabled": true,
+      "date_window": "previous_day"
+    },
+    {
+      "id": "K04",
+      "name": "BLs with 2+ MCATs mapped",
+      "sheet_tab": "K04_Multi_MCAT",
+      "sql_file": "sql/k04_multi_mcat_mapped.sql",
+      "redash_data_source_id": 41,
+      "redash_query_id": 24260,
+      "date_basis": "approval_date",
+      "direction": "lower_is_better",
+      "enabled": true,
+      "date_window": "previous_day"
+    },
+    {
+      "id": "K05",
+      "name": "Buyer / company name in title",
+      "sheet_tab": "K05_Name_In_Title",
+      "sql_file": "sql/k05_buyer_name_in_title.sql",
+      "redash_data_source_id": 16,
+      "redash_query_id": 24118,
+      "date_basis": "approval_date",
+      "direction": "lower_is_better",
+      "date_window": "previous_day",
+      "enabled": true
+    },
+    {
+      "id": "K06",
+      "name": "Blank BLs (no spec/desc/qty/photo), India",
+      "sheet_tab": "K06_Blank_BLs",
+      "scope": "India only (fk_gl_country_iso = 'IN'); base_label = 'Approved BLs (India)'",
+      "sql_file": "sql/k06_blank_bls.sql",
+      "redash_data_source_id": 41,
+      "redash_query_id": 23071,
+      "date_basis": "approval_date",
+      "direction": "lower_is_better",
+      "date_window": "previous_day",
+      "enabled": true
+    },
+    {
+      "id": "K07",
+      "name": "Auto-approved BLs by best-ranked viewed product",
+      "scope": "Auto-approved BLs only (fk_employee_id = -14 on the BL's latest row); base_label = 'Auto-approved BLs'",
+      "sheet_tab": "K07_Viewed_Product_Match",
+      "sql_file": "sql/k07_viewed_product_match.sql",
+      "redash_data_source_id": 41,
+      "redash_query_id": 23053,
+      "date_basis": "approval_date",
+      "extra_columns": [
+        "category"
+      ],
+      "rows_per_day": "one per category; upsert on report_date + category",
+      "direction": "neutral",
+      "date_window": "previous_day",
+      "enabled": true
+    },
+    {
+      "id": "K08",
+      "name": "PMCAT mapping %",
+      "sheet_tab": "K08_PMCAT_Mapping",
+      "sql_file": "sql/k08_pmcat_mapping.sql",
+      "redash_data_source_id": 41,
+      "redash_query_id": 49707,
+      "date_basis": "approval_date",
+      "direction": "lower_is_better",
+      "date_window": "previous_day",
+      "enabled": true
+    },
+    {
+      "id": "K09",
+      "name": "Qty fill rate %",
+      "sheet_tab": "K09_Qty_Fill_Rate",
+      "sql_file": "sql/k09_qty_fill_rate.sql",
+      "redash_data_source_id": 41,
+      "redash_query_id": 49671,
+      "date_basis": "approval_date",
+      "direction": "higher_is_better",
+      "date_window": "previous_day",
+      "enabled": true,
+      "scope": "Base = approved BLs in MCATs with an active Quantity ISQ; base_label = 'Approved BLs in MCATs with a Quantity ISQ'"
+    },
+    {
+      "id": "K10",
+      "name": "Buyer filled spec %",
+      "sheet_tab": "K10_Buyer_Spec_Fill",
+      "sql_file": "sql/k10_buyer_filled_spec.sql",
+      "redash_data_source_id": 41,
+      "redash_query_id": 49699,
+      "date_basis": "approval_date",
+      "direction": "higher_is_better",
+      "date_window": "previous_day",
+      "enabled": true,
+      "scope": "Base = approved BLs in live MCATs with a non-quantity buyer/seller ISQ; base_label = 'Approved BLs in MCATs with buyer specs'"
+    },
+    {
+      "id": "K11",
+      "name": "BLs approved after 24 hours of generation %",
+      "sheet_tab": "K11_Approved_After_24h",
+      "sql_file": "sql/k11_approved_after_24h.sql",
+      "redash_data_source_id": 41,
+      "redash_query_id": 49667,
+      "date_basis": "approval_date",
+      "direction": "lower_is_better",
+      "date_window": "previous_day",
+      "enabled": true
+    },
+    {
+      "id": "K12",
+      "name": "BLs with 0 suppliers selected",
+      "sheet_tab": "K12_Zero_Suppliers",
+      "sql_file": "sql/k12_zero_suppliers.sql",
+      "redash_data_source_id": 41,
+      "redash_query_id": 49708,
+      "date_basis": "approval_date",
+      "direction": "lower_is_better",
+      "date_window": "previous_day",
+      "enabled": true
+    },
+    {
+      "id": "K13",
+      "name": "BL quality agent corrections (all agents)",
+      "sheet_tab": "K13_Agent_Corrections",
+      "sql_file": "sql/k13_agent_corrections.sql",
+      "redash_data_source_id": 41,
+      "redash_query_id": 49709,
+      "date_basis": "approval_date",
+      "direction": "neutral",
+      "date_window": "previous_day",
+      "enabled": true,
+      "extra_columns": [
+        "category"
+      ],
+      "rows_per_day": "one per issue; upsert on report_date + category"
+    },
+    {
+      "id": "K14",
+      "name": "Absurd quantity detected",
+      "sheet_tab": "K14_Absurd_Qty",
+      "sql_file": "sql/k14_absurd_qty.sql",
+      "redash_data_source_id": 41,
+      "redash_query_id": 49710,
+      "date_basis": "approval_date",
+      "direction": "lower_is_better",
+      "date_window": "previous_day",
+      "enabled": true
+    }
+  ]
+}
